@@ -141,3 +141,109 @@ function viewAllEmployees() {
     connection.end();
   });
 }
+
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        name: "departmentName",
+        type: "input",
+        message: "What is the new department's name?",
+      },
+    ])
+    .then(function (answer) {
+      connection.query(
+        "INSERT INTO department (name) VALUES (?)",
+        [answer.departmentName],
+        function (err, res) {
+          if (err) throw err;
+          console.log("----------------------------");
+          console.log(answer.firstName + " has been added to the database.");
+          viewEmployees();
+          console.log("----------------------------");
+          init();
+        }
+      );
+    });
+}
+
+function deleteDepartment() {
+  inquirer
+    .prompt([
+      {
+        name: "deleteDepartment",
+        type: "input",
+        message: "What is the department you would like to delete?",
+        choices: ["Sales", "Engineering", "Finance", "Legal"],
+      },
+    ])
+    .then(function (answer) {
+      connection.query("DELETE FROM department WHERE name = ?", function (
+        err,
+        res
+      ) {
+        if (err) throw err;
+
+        // Log all results of the SELECT statement
+        console.log(res);
+        init();
+      });
+    });
+}
+
+function addNewRole() {
+  inquirer
+    .prompt([
+      {
+        name: "newRoleName",
+        type: "input",
+        message: "What is the title of the new role?",
+      },
+    ])
+    .then(function (answer) {
+      connection.query(
+        "INSERT INTO role (name) VALUES (?)",
+        [answer.newRoleName],
+        function (err, res) {
+          if (err) throw err;
+          console.log("----------------------------");
+          console.log(answer.firstName + " has been added to the database.");
+          viewEmployees();
+          console.log("----------------------------");
+          init();
+        }
+      );
+    });
+}
+
+function deleteRole() {
+  inquirer
+    .prompt([
+      {
+        name: "deleteRole",
+        type: "input",
+        message: "What is the title of the role you would like to delete?",
+        choices: [
+          "Salesperson",
+          "Sales Lead",
+          "Software Engineer",
+          "Lead Engineer",
+          "Accountant",
+          "Lawyer",
+          "Legal Team Lead",
+        ],
+      },
+    ])
+    .then(function (answer) {
+      connection.query("DELETE FROM department WHERE name = ?", function (
+        err,
+        res
+      ) {
+        if (err) throw err;
+
+        // Log all results of the SELECT statement
+        console.log(res);
+        init();
+      });
+    });
+}
