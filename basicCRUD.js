@@ -21,6 +21,76 @@ connection.connect(function (err) {
   createProduct();
 });
 
+function init() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "list",
+      message: "What would you like to do?",
+      choices: [
+        "View all employees",
+        "View all employees by department",
+        "View all employees by manager",
+        "Add an employee to the database",
+        "Remove an employee from the database",
+        "Update an employee's role",
+        "Update an employee's manager",
+        "Add a new type of employee role",
+        "Delete a type of role from the database",
+        "Add a department to to the database",
+        "Remove a department from the database",
+        "Exit",
+      ],
+    })
+    .then(function (answer) {
+      switch (answer.action) {
+        case "View all employees":
+          viewAllEmployees();
+          break;
+
+        case "View all employees by department":
+          viewEmployeesDept();
+          break;
+
+        case "View all employees by manager":
+          viewEmployeesByManager();
+          break;
+
+        case "Add an employee to the database":
+          addEmployee();
+          break;
+
+        case "Remove an employee from the database":
+          deleteEmployee();
+          break;
+
+        case "Update an employee's role":
+          updateEmployeeRole();
+          break;
+
+        case "Add a new type of employee role":
+          addNewRole();
+          break;
+
+        case "Delete a type of role from the database":
+          deleteRole();
+          break;
+
+        case "Add a department to to the database":
+          addDepartment();
+          break;
+
+        case "Remove a department from the database":
+          deleteDepartment();
+          break;
+
+        case "Exit":
+          connection.end();
+          break;
+      }
+    });
+}
+
 function addEmployee() {
   inquirer
     .prompt([
@@ -36,7 +106,7 @@ function addEmployee() {
       },
       {
         name: "role",
-        type: "input",
+        type: "list",
         message: "What is the employee's role?",
         choices: [
           "Salesperson",
@@ -76,7 +146,7 @@ function updateEmployeeRole() {
       },
       {
         name: "role",
-        type: "input",
+        type: "list",
         message: "What is their new role?",
         choices: [
           "Salesperson",
@@ -132,16 +202,6 @@ function deleteEmployee() {
     });
 }
 
-function viewAllEmployees() {
-  console.log("Selecting all products...\n");
-  connection.query("SELECT * FROM employee", function (err, res) {
-    if (err) throw err;
-    // Log all results of the SELECT statement
-    console.table(res);
-    connection.end();
-  });
-}
-
 function addDepartment() {
   inquirer
     .prompt([
@@ -172,7 +232,7 @@ function deleteDepartment() {
     .prompt([
       {
         name: "deleteDepartment",
-        type: "input",
+        type: "list",
         message: "What is the department you would like to delete?",
         choices: ["Sales", "Engineering", "Finance", "Legal"],
       },
@@ -221,7 +281,7 @@ function deleteRole() {
     .prompt([
       {
         name: "deleteRole",
-        type: "input",
+        type: "list",
         message: "What is the title of the role you would like to delete?",
         choices: [
           "Salesperson",
@@ -246,4 +306,41 @@ function deleteRole() {
         init();
       });
     });
+}
+
+function viewAllEmployees() {
+  console.log("Selecting all employees...\n");
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    // Log all results of the SELECT statement
+    console.table(res);
+    connection.end();
+  });
+}
+
+function viewEmployeesByManager() {
+  inquirer
+    .prompt({
+      name: "manager",
+      type: "list",
+      message: "Which manager's team would you like to see?",
+      choices: ["Ashley Rodriguez", "John Doe", "Sarah Lourd", "Mike Chan"],
+    })
+    .then(function (answer) {
+      console.log("Selecting all employees...\n");
+      connection.query("SELECT * FROM employee", function (err, res) {
+        if (err) throw err;
+        // Log all results of the SELECT statement
+        console.table(res);
+        connection.end();
+      });
+    });
+}
+
+function viewEmployeesDept() {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
 }
