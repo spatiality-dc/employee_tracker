@@ -1,14 +1,16 @@
 {
-  "name": "ice-cream-crud",
+  "name": "employee_tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "iceCreamCRUD.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "watch": "nodemon server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "inquirer": "^7.1.0"
   }
 }

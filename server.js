@@ -328,7 +328,10 @@ function viewEmployeesByManager() {
     })
     .then(function (answer) {
       console.log("Selecting all employees...\n");
-      connection.query("SELECT * FROM employee", function (err, res) {
+      connection.query("SELECT * FROM employee WHERE manager_id ?", function (
+        err,
+        res
+      ) {
         if (err) throw err;
         // Log all results of the SELECT statement
         console.table(res);
