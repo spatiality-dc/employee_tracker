@@ -16,7 +16,22 @@ This is a command line application that can be used to manipulate a database of 
 
 ## Installation
 
-A
+1. Open and run the seeds.sql and scheme.sql files in MySQL.
+
+2. Update the password to your MySQL root folder in the server.js file on line 14.
+
+```
+// Your password
+  password: "",
+  database: "employee_DB",
+```
+
+3. Install the npm dependencies and then run npm start
+
+```
+npm i
+npm start
+```
 
 ## User Story
 
@@ -28,14 +43,16 @@ So that I can organize and plan my business
 
 ## Challenges
 
-- A
+- I had a lot of trouble getting MySQL to run on my machine. In the end I downloaded an older version and set up an "Admin" user on my root folder. This seemed to help, but I still ran into a lot of troubles.
 
 ## Results
 
-A
+- Github Repo - https://github.com/spatiality-dc/employee_tracker
 
-- Github Repo - https://github.com/spatiality-dc
+- There is no GIF for this CLI because it doesn't actually run.
 
 ## Lessons Learned
 
-- J
+- I didn't leave myself enough time to trouble shoot this project. That's a big lesson. This doesn't actually run and I ran out of time to figure out why.
+
+- I feel like I'm getting better at Javascript, but there are still some patterns of thinking (in terms of how to write good code) that still cause me to slip up.
